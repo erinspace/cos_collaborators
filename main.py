@@ -48,17 +48,20 @@ def get_non_cos_contributors():
     cos_repos = get_repos()
     cos_contributors = get_cos_contributors()
     non_cos_contributors = []
+    non_cos_names = []
     for repo in cos_repos:
         print repo
         contributors =  repo.iter_contributors()
         for person in contributors:
             if str(person) not in cos_contributors:
                 non_cos_contributors.append(str(person))
+                non_cos_names.append(person.name)
 
-    return list(set(non_cos_contributors))
+    return list(set(non_cos_contributors)), list(set(non_cos_names))
 
 
 if __name__ == "__main__":
-    non_cos_contributors = get_non_cos_contributors()
-    print 'Here are the {} Non-COS Contributors: '.format(str(len(non_cos_contributors)))
-    print non_cos_contributors
+    non_cos_contributor_usernames, names = get_non_cos_contributors()
+    print 'Here are the {} Non-COS Contributors: '.format(str(len(non_cos_contributor_usernames)))
+    print non_cos_contributor_usernames
+    print names
