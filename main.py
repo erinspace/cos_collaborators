@@ -23,13 +23,13 @@ def get_repos():
 
 
 def get_cos_contributors():
-    ''' returns a list of contribtors from a google spreadsheet 
+    ''' returns a list of contribtors from a google spreadsheet
     specified by spreadsheet ID '''
 
     client = SpreadsheetsService()
 
     feed = client.GetWorksheetsFeed(DOC_KEY, visibility='public', wksht_id='1')
-    sheet_key = feed.id.text.rsplit('/',1)[1]
+    sheet_key = feed.id.text.rsplit('/', 1)[1]
 
     list_of_rows = client.GetListFeed(DOC_KEY, sheet_key, visibility='public').entry
 
@@ -39,10 +39,10 @@ def get_cos_contributors():
         cos_users.append(row_dict[COL_ROW_NAME].text)
 
     return cos_users
-    
+
 
 def get_non_cos_contributors():
-    ''' returns a list of contributors that aren't in the COS spreadsheet 
+    ''' returns a list of contributors that aren't in the COS spreadsheet
     but have contributed to COS projects on github '''
 
     cos_repos = get_repos()
@@ -51,7 +51,7 @@ def get_non_cos_contributors():
     non_cos_names = []
     for repo in cos_repos:
         print repo
-        contributors =  repo.iter_contributors()
+        contributors = repo.iter_contributors()
         for person in contributors:
             if str(person) not in cos_contributors:
                 non_cos_contributors.append(str(person))
