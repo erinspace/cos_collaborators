@@ -32,6 +32,7 @@ def get_cos_contributors():
     sheet_key = feed.id.text.rsplit('/', 1)[1]
 
     list_of_rows = client.GetListFeed(DOC_KEY, sheet_key, visibility='public').entry
+    print('There are {} rows on the COS spreadsheet.'.format(len(list_of_rows)))
 
     cos_users = []
     for row in list_of_rows:
